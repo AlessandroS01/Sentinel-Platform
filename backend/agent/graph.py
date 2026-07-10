@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, END
-from .state import GraphState
-from .nodes import retrieve_node, redact_node, synthesize_node
+from state import GraphState
+from nodes import retrieve_node, redact_node, synthesize_node
 
 # Initialize the graph
 workflow = StateGraph(GraphState)

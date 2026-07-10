@@ -1,5 +1,5 @@
 from loguru import logger
-from .state import GraphState
+from state import GraphState
 
 
 async def retrieve_node(state: GraphState) -> dict:
