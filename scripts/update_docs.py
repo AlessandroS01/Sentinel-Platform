@@ -9,7 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate
 # Configuration
 ROOT_DIR = Path(__file__).parent.parent
 README_PATH = ROOT_DIR / "README.md"
-IGNORE_DIRS = {".git", ".idea", "__pycache__", "scripts", ".air", "data"}
+IGNORE_DIRS = {".git", ".idea", "__pycache__"}
 
 
 def get_project_structure(root_path: Path) -> str:
