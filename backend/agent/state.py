@@ -6,13 +6,13 @@ class GraphState(TypedDict):
     Represents the state of our graph.
 
     Attributes:
-        query: The user's query.
-        retrieved_context: A list of retrieved context.
-        redacted_content: The redacted content.
-        final_brief: The final brief.
+        query: The incoming user claim.
+        raw_context: Unredacted context text retrieved.
+        redacted_context: Text stripped of identifying data.
+        final_brief: The final anonymous intelligence summary.
     """
 
     query: str
-    retrieved_context: List[str]
-    redacted_content: str
+    raw_context: List[str]
+    redacted_context: str
     final_brief: str

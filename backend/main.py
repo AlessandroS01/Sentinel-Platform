@@ -1,6 +1,7 @@
 import loguru
 from fastapi import FastAPI
 from pydantic import BaseModel
+
 from agent.graph import app as langgraph_app
 
 # Configure Loguru as the default logger
