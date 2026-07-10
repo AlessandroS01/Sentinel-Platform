@@ -17,7 +17,13 @@ The Sentinel Platform is structured as a monorepo, with each directory represent
 
 *   **`/backend/`**: Contains the primary FastAPI microservice. This service is responsible for handling all API requests, managing user tenants, and orchestrating AI tasks.
     *   **`/backend/agent/`**: Houses the core LangGraph implementation, including the state definitions, graph orchestration logic, and execution nodes.
+*   **`/ai_engine/`**: Contains the PyTorch-based analytical models and forecasting logic.
+*   **`/frontend/`**: Houses the client-side application code.
+*   **`/infrastructure/`**: Contains Terraform/IaC definitions for platform deployment.
+*   **`/data/`**: Reserved for local data storage and persistent volumes.
+*   **`/scripts/`**: Contains utility scripts for repository maintenance and automation.
 *   **`/.github/`**: Contains CI/CD pipeline configurations and automated workflow definitions for the repository.
+*   **`/.air/`**: Contains configuration and rules for the development environment.
 
 ## Tech Stack
 
@@ -62,3 +68,5 @@ docker run -d -p 8000:8000 --name sentinel-backend-container sentinel-backend
 ```
 
 The FastAPI backend will now be accessible at `http://localhost:8000`.
+
+---
