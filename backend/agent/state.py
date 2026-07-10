@@ -1,5 +1,6 @@
 from typing import TypedDict, List
 
+
 class GraphState(TypedDict):
     """
     Represents the state of our graph.
@@ -10,6 +11,7 @@ class GraphState(TypedDict):
         redacted_content: The redacted content.
         final_brief: The final brief.
     """
+
     query: str
     retrieved_context: List[str]
     redacted_content: str

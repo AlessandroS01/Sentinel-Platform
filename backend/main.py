@@ -8,16 +8,20 @@ loguru.logger.add("file_{time}.log", rotation="500 MB")  # Example of file loggi
 
 app = FastAPI()
 
+
 class PitchRequest(BaseModel):
     query: str
+
 
 @app.on_event("startup")
 async def startup_event():
     loguru.logger.info("Application starting up...")
 
+
 @app.on_event("shutdown")
 async def shutdown_event():
     loguru.logger.info("Application shutting down...")
+
 
 @app.get("/health")
 async def health():
@@ -26,6 +30,7 @@ async def health():
     """
     loguru.logger.info("Health check endpoint was called.")
     return {"status": "ok"}
+
 
 @app.post("/pitch")
 async def pitch(request: PitchRequest):

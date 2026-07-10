@@ -16,12 +16,12 @@ def get_project_structure(root_path: Path) -> str:
     structure = []
     for dirpath, dirnames, filenames in os.walk(root_path):
         dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS]
-        level = str(dirpath).replace(str(root_path), '').count(os.sep)
-        indent = ' ' * 4 * level
+        level = str(dirpath).replace(str(root_path), "").count(os.sep)
+        indent = " " * 4 * level
         structure.append(f"{indent}{os.path.basename(dirpath)}/")
 
         for f in filenames:
-            if f.endswith(('.py', '.txt', '.md', 'Dockerfile', '.env')):
+            if f.endswith((".py", ".txt", ".md", "Dockerfile", ".env")):
                 structure.append(f"{indent}    {f}")
     return "\n".join(structure)
 
@@ -41,34 +41,43 @@ def update_readme():
     tree = get_project_structure(ROOT_DIR)
     current_readme = get_current_readme(README_PATH)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a senior AI engineer maintaining the Sentinel Platform monorepo. "
-                   "Your job is to update the repository's README.md file. "
-                   "Preserve the tone, formatting, and manual descriptions from the existing README, "
-                   "but update the 'Repository Architecture' or folder tree sections to perfectly match "
-                   "the new physical architecture provided. Output ONLY the raw Markdown code."),
-        ("user", "Here is the EXISTING README:\n\n{current_readme}\n\n"
-                 "---\n\n"
-                 "Here is the NEW physical architecture of the repository:\n\n{tree}\n\n"
-                 "Generate the updated README.md.")
-    ])
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                "You are a senior AI engineer maintaining the Sentinel Platform monorepo. "
+                "Your job is to update the repository's README.md file. "
+                "Preserve the tone, formatting, and manual descriptions from the existing README, "
+                "but update the 'Repository Architecture' or folder tree sections to perfectly match "
+                "the new physical architecture provided. Output ONLY the raw Markdown code.",
+            ),
+            (
+                "user",
+                "Here is the EXISTING README:\n\n{current_readme}\n\n"
+                "---\n\n"
+                "Here is the NEW physical architecture of the repository:\n\n{tree}\n\n"
+                "Generate the updated README.md.",
+            ),
+        ]
+    )
 
     # Initialize the Gemini LLM
     llm = ChatGoogleGenerativeAI(
         model="gemini-1.5-pro",
         temperature=0.1,  # Lowered temperature for stricter adherence to the existing file
-        max_retries=2
+        max_retries=2,
     )
     chain = prompt | llm
 
     print("Merging updates with Gemini...")
-    new_readme = chain.invoke({
-        "tree": tree,
-        "current_readme": current_readme
-    })
+    new_readme = chain.invoke({"tree": tree, "current_readme": current_readme})
 
     # Clean up markdown code blocks if the LLM wraps the response in them
-    final_content = new_readme.content.removeprefix("```markdown\n").removeprefix("```\n").removesuffix("\n```")
+    final_content = (
+        new_readme.content.removeprefix("```markdown\n")
+        .removeprefix("```\n")
+        .removesuffix("\n```")
+    )
 
     with open(README_PATH, "w", encoding="utf-8") as f:
         f.write(final_content)

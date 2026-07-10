@@ -35,3 +35,15 @@
 - **Authentication:** Use JWT (JSON Web Tokens) for stateless, secure multi-tenant user sessions.
 - **LLM Guardrails:** Pydantic schemas validate all outputs from the LangGraph agents before they are returned to the user. 
 - **Redaction:** The Redactor Agent uses Named Entity Recognition (NER) to aggressively scrub polarizing names and inflammatory rhetoric from the text. Ensure this agent hasn't accidentally leaked the identities of protected sources.
+
+
+## 7. Python Code Style & Quality (Ruff Compliance)
+
+- **Formatting:** All generated Python code must strictly conform to Ruff's default formatting layout (which mirrors the Black code style).
+  - Use **double quotes** (`"`) for all standard strings.
+  - Maintain a strict line-length limit of **88 characters**.
+  - Always include a trailing comma in multi-line function arguments, lists, and dictionaries.
+- **Linting & Code Hygiene:**
+  - **No Unused Imports:** Never leave unused imports or dead variables in the code.
+  - **Import Sorting:** Group and sort imports alphabetically according to PEP 8 (Standard library first, third-party libraries second, local project modules last).
+  - Avoid using wildcard imports (`from module import *`).

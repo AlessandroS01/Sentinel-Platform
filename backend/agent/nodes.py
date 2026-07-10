@@ -1,6 +1,7 @@
 from loguru import logger
 from .state import GraphState
 
+
 async def retrieve_node(state: GraphState) -> dict:
     """
     Retrieves information based on the user's query.
@@ -10,6 +11,7 @@ async def retrieve_node(state: GraphState) -> dict:
     retrieved_context = ["context 1", "context 2"]
     return {"retrieved_context": retrieved_context}
 
+
 async def redact_node(state: GraphState) -> dict:
     """
     Redacts sensitive information from the retrieved context.
@@ -18,6 +20,7 @@ async def redact_node(state: GraphState) -> dict:
     # This is a placeholder
     redacted_content = "redacted content"
     return {"redacted_content": redacted_content}
+
 
 async def synthesize_node(state: GraphState) -> dict:
     """
