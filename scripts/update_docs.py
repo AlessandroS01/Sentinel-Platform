@@ -64,7 +64,7 @@ def update_readme():
     # Initialize the Gemini LLM
     llm = ChatGoogleGenerativeAI(
         model="gemini-3.1-flash-lite",
-        temperature=0.1, 
+        temperature=0.1,
         max_retries=2,
     )
     chain = prompt | llm
