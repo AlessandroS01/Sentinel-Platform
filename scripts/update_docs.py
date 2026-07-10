@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -67,17 +68,19 @@ def update_readme():
         temperature=0.1,
         max_retries=2,
     )
-    chain = prompt | llm
+    chain = prompt | llm | StrOutputParser()
 
     print("Merging updates with Gemini...")
-    new_readme = chain.invoke({"tree": tree, "current_readme": current_readme})
+    new_readme = chain.invoke({
+        "tree": tree,
+        "current_readme": current_readme
+    })
 
     # Clean up markdown code blocks if the LLM wraps the response in them
-    final_content = (
-        new_readme.content.removeprefix("```markdown\n")
-        .removeprefix("```\n")
-        .removesuffix("\n```")
-    )
+    final_content = (new_readme.
+                     removeprefix("```markdown\n").
+                     removeprefix("```\n").
+                     removesuffix("\n```"))
 
     with open(README_PATH, "w", encoding="utf-8") as f:
         f.write(final_content)
