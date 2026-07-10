@@ -71,16 +71,14 @@ def update_readme():
     chain = prompt | llm | StrOutputParser()
 
     print("Merging updates with Gemini...")
-    new_readme = chain.invoke({
-        "tree": tree,
-        "current_readme": current_readme
-    })
+    new_readme = chain.invoke({"tree": tree, "current_readme": current_readme})
 
     # Clean up markdown code blocks if the LLM wraps the response in them
-    final_content = (new_readme.
-                     removeprefix("```markdown\n").
-                     removeprefix("```\n").
-                     removesuffix("\n```"))
+    final_content = (
+        new_readme.removeprefix("```markdown\n")
+        .removeprefix("```\n")
+        .removesuffix("\n```")
+    )
 
     with open(README_PATH, "w", encoding="utf-8") as f:
         f.write(final_content)
