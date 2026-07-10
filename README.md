@@ -15,11 +15,9 @@ This repository contains the full source code, infrastructure definitions, and d
 
 The Sentinel Platform is structured as a monorepo, with each directory representing a distinct microservice or component of the system. This design promotes modularity and independent development while maintaining a unified deployment strategy.
 
-*   **`/backend/`**: Contains the primary FastAPI microservice. This service is responsible for handling all API requests, managing user tenants, and orchestrating AI tasks via LangGraph. It is the place where the LangGraph "Truth Pitch" state machine will live.
-*   **`/ai_engine/`**: Houses the PyTorch-based time-series forecasting engine. This component is designed to be a self-contained service for model training, inference, and data processing.
-*   **`/frontend/`**: The placeholder for the user interface components and client-side application that will interact with the backend API.
-*   **`/data/`**: Designated for storing sample datasets, training data, and other data-related assets required by the AI engine.
-*   **`/infrastructure/`**: Includes deployment scripts, container configurations (like Docker-compose), and any other Infrastructure as Code (IaC) artifacts.
+*   **`/backend/`**: Contains the primary FastAPI microservice. This service is responsible for handling all API requests, managing user tenants, and orchestrating AI tasks.
+    *   **`/backend/agent/`**: Houses the core LangGraph implementation, including the state definitions, graph orchestration logic, and execution nodes.
+*   **`/.github/`**: Contains CI/CD pipeline configurations and automated workflow definitions for the repository.
 
 ## Tech Stack
 
