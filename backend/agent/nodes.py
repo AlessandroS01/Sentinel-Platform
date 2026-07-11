@@ -1,3 +1,5 @@
+import os
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama.chat_models import ChatOllama
@@ -6,7 +8,11 @@ from loguru import logger
 from agent.state import GraphState
 
 # Initialize the Ollama LLM
-llm = ChatOllama(model="gemma4:latest", temperature=0.1)
+llm = ChatOllama(
+    model="gemma4:latest",
+    base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+    temperature=0.1,
+)
 
 
 async def retrieve_node(state: GraphState) -> dict:
